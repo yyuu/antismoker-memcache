@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "antismoker-memcache"
   gem.require_paths = ["lib"]
-  gem.version       = AntiSmoker::Memcache::VERSION
+  gem.version       = AntiSmoker::MemcacheModule::VERSION
 
   gem.add_dependency("antismoker")
   gem.add_dependency("memcache")
