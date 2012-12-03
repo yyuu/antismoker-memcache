@@ -15,7 +15,7 @@ module AntiSmoker
     attr_reader :command
 
     def run_once(options={})
-      client = Memcache.new(:server => "#{host}:#{port}")
+      client = Memcache.new(:server => server_string, :strict_reads => true)
       response = client.__send__(command)
       response_ok(response)
     rescue => error
@@ -24,7 +24,16 @@ module AntiSmoker
     end
 
     def response_ok(response)
-      response
+      server_response = response.fetch(server_string, {})
+      if Enumerable === server_response
+        not server_response.empty?
+      else
+        server_response
+      end
+    end
+
+    def server_string
+      "#{host}:#{port}"
     end
 
     def to_s
